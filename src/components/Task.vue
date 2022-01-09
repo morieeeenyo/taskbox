@@ -19,7 +19,8 @@
   import { reactive, computed } from 'vue';
 
   export default {
-    name: 'Task',
+    name: 'Task', //コンポーネントの名前
+    // props
     props: {
       task: {
         type: Object,
@@ -28,11 +29,14 @@
         validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
+    // コンポーネントが発行するイベント。つまりここに書いたイベントが親に伝播される
     emits: ['archive-task', 'pin-task'],
 
+    // 従来のdataやmethodsに当たる部分
     setup(props, { emit }) {
       props = reactive(props);
       return {
+        // taskのstateに応じてクラスを付与してcssを分ける
         classes: computed(() => ({
           'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
           'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
@@ -41,10 +45,12 @@
         /**
          * Computed property for checking the state of the task
          */
+        // タスクのstateがTASK_ARCHIVEDのときtrueになり、チェックボックスにチェックが入る
         isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
         /**
          * Event handler for archiving tasks
          */
+        // emitに定義したイベントを呼び出す関数
         archiveTask() {
           emit('archive-task', props.task.id);
         },
