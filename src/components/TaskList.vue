@@ -34,7 +34,7 @@
     setup(props, { emit }) {
       props = reactive(props);
       return {
-        isEmpty: computed(() => props.tasks.length === 0),
+        isEmpty: computed(() => props.tasks.length === 0), // tasksが空のときtrue
         /**
          * Event handler for archiving tasks
          */

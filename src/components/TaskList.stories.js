@@ -39,21 +39,21 @@ WithPinnedTasks.args = {
   // Shaping the stories through args composition.
   // Inherited data coming from the Default story.
   tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ...Default.args.tasks.slice(0, 5), // 5番目までは通常のtask
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' }, // 6番目だけpinned
   ],
 };
 
 export const Loading = Template.bind({});
 Loading.args = {
   tasks: [],
-  loading: true,
+  loading: true, // v-ifでローディング表示
 };
 
 export const Empty = Template.bind({});
 Empty.args = {
   // Shaping the stories through args composition.
   // Inherited data coming from the Loading story.
-  ...Loading.args,
+  ...Loading.args, // tasksがempty→isEmptyがtrue
   loading: false,
 };
